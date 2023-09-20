@@ -1,9 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { RestaurantsType } from "../interfaces/types";
 
 interface ContextValue {
@@ -21,19 +16,16 @@ interface Props {
 export const AuthContextConstructor = ({ children }: Props) => {
   const [restaurants, setRestaurants] = useState<RestaurantsType[]>([]);
   const [favorites, setFavorites] = useState<string[]>([]);
-useEffect(() => {
-
-  if (favorites.length>0) {
-    localStorage.setItem("favorite", JSON.stringify(favorites));
-  }
-  else { setFavorites(JSON.parse(localStorage.getItem("favorite")!) || "")}
-  }
-, [favorites])
-
-  
+  useEffect(() => {
+    if (favorites.length > 0) {
+      localStorage.setItem("favorite", JSON.stringify(favorites));
+    } else {
+      setFavorites(JSON.parse(localStorage.getItem("favorite")!) || "");
+    }
+  }, [favorites]);
 
   useEffect(() => {
-    fetch(`http://localhost:5001/restaurants`)
+    fetch(`https://data-api-jet.vercel.app/restaurants`)
       .then((res) => res.json())
       .then((data: RestaurantsType[]) => setRestaurants(data));
   }, []);
