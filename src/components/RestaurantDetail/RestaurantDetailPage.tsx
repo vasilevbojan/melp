@@ -42,7 +42,7 @@ const RestaurantDetailPage = () => {
     };
     const result = await axios.put(
       `https://data-api-jet.vercel.app/restaurants/${chosenRestaurant.id}`,
-      inputObject
+      { inputObject }
     );
 
     const selected = restaurants.map((restorant) => {
