@@ -41,7 +41,7 @@ const RestaurantDetailPage = () => {
       reviews: chosenRestaurant.reviews + 1,
     };
     const result = await axios.put(
-      `http://localhost:5001/restaurants/${chosenRestaurant.id}`,
+      `https://data-api-jet.vercel.app/restaurants/${chosenRestaurant.id}`,
       inputObject
     );
 
@@ -64,7 +64,8 @@ const RestaurantDetailPage = () => {
     );
     if (ratingStars === 0 && chosenRestaurant.reviews === 0) {
       return 0;
-    } else { return +(ratingStars / chosenRestaurant.reviews).toFixed(2)
+    } else {
+      return +(ratingStars / chosenRestaurant.reviews).toFixed(2);
     }
   };
   return (
