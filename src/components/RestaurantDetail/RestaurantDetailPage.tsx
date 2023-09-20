@@ -33,30 +33,28 @@ const RestaurantDetailPage = () => {
     stars: starsInput,
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     let inputObject = {
       ...chosenRestaurant,
       reviewsList: [...chosenRestaurant.reviewsList, reviewObject],
       reviews: chosenRestaurant.reviews + 1,
     };
-    axios
-      .put(
-        `https://data-api-jet.vercel.app/restaurants/${chosenRestaurant.id}`,
-        { inputObject }
-      )
-      .then((res) => console.log(res.data));
+    const result = await axios.put(
+      `https://data-api-jet.vercel.app/restaurants/${chosenRestaurant.id}`,
+      inputObject
+    );
 
-    // const selected = restaurants.map((restorant) => {
-    //   if (restorant.id === result.data.id) {
-    //     return result.data;
-    //   }
-    //   return restorant;
-    // });
-    // setRestaurants(selected);
-    // setMessageInput("");
-    // setNameInput("");
-    // setStarsInput(0);
+    const selected = restaurants.map((restorant) => {
+      if (restorant.id === result.data.id) {
+        return result.data;
+      }
+      return restorant;
+    });
+    setRestaurants(selected);
+    setMessageInput("");
+    setNameInput("");
+    setStarsInput(0);
   };
 
   const rating = () => {
