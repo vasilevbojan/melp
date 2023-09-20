@@ -43,7 +43,7 @@ const RestaurantDetailPage = () => {
     axios
       .put(
         `https://data-api-jet.vercel.app/restaurants/${chosenRestaurant.id}`,
-        inputObject
+        { inputObject }
       )
       .then((res) => console.log(res.data));
 
