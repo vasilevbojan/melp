@@ -12,7 +12,7 @@ export const RestaurantCard = ({ restaurant }: Props) => {
 
   const rating = () => {
     let ratingStars = 0;
-    restaurant.reviewsList.map(
+    restaurant.reviewsList?.map(
       (reviewStars) => (ratingStars += reviewStars.stars)
     );
     if (ratingStars === 0 && restaurant.reviews === 0) {
@@ -26,7 +26,6 @@ export const RestaurantCard = ({ restaurant }: Props) => {
   if (favorites) {
     isFavorite = !!favorites.find((f) => restaurant.id === f);
   }
-
 
   return (
     <div className="cardsWidth mb-3">
@@ -54,7 +53,7 @@ export const RestaurantCard = ({ restaurant }: Props) => {
         </div>
         <Link
           className="text-decoration-none"
-          to={`/restaurant/${restaurant.slug}`}
+          to={`/restaurant/${restaurant.id}`}
         >
           <img
             src={restaurant?.image}

@@ -30,6 +30,12 @@ export const AuthContextConstructor = ({ children }: Props) => {
       .then((data: RestaurantsType[]) => setRestaurants(data));
   }, []);
 
+  useEffect(() => {
+    fetch(`https://data-api-jet.vercel.app/restaurants`)
+      .then((res) => res.json())
+      .then((data: RestaurantsType[]) => setRestaurants(data));
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{

@@ -1,21 +1,20 @@
-import { useData } from "../../Context/DataContext";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Review from "./review";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
+import { FetchSingle, useUpdate } from "../../data/dataFetch";
+import supabase from "../../config/supabaseClient";
 import { RestaurantsType } from "../../interfaces/types";
 
 const RestaurantDetailPage = () => {
-  const { restaurants, setRestaurants } = useData();
-  let { restaurant } = useParams();
+  const { id } = useParams();
+  console.log(id);
 
-  const [chosenRestaurant, setChosenRestaurant] = useState<RestaurantsType>();
+  const resto = FetchSingle("id", id!);
 
-  useEffect(() => {
-    setChosenRestaurant(
-      restaurants.find((res) => res.slug === restaurant) as RestaurantsType
-    );
-  }, [restaurants, restaurant]);
+  const [newRestorants, setNewRestorants] = useState<RestaurantsType>();
+  const chosenRestaurant = newRestorants || resto;
+
+  console.log(chosenRestaurant);
 
   const [nameInput, setNameInput] = useState<string>("");
   const [messageInput, setMessageInput] = useState<string>("");
@@ -26,7 +25,7 @@ const RestaurantDetailPage = () => {
   }
   const objectList = chosenRestaurant.reviewsList;
 
-  let reviewObject = {
+  let reviewsList = {
     id: objectList ? objectList.length : 0,
     author: nameInput,
     comment: messageInput,
@@ -37,21 +36,17 @@ const RestaurantDetailPage = () => {
     e.preventDefault();
     let inputObject = {
       ...chosenRestaurant,
-      reviewsList: [...chosenRestaurant.reviewsList, reviewObject],
+      reviewsList: [...chosenRestaurant.reviewsList, reviewsList],
       reviews: chosenRestaurant.reviews + 1,
     };
-    const result = await axios.put(
-      `https://data-api-jet.vercel.app/restaurants/${chosenRestaurant.id}`,
-      inputObject
-    );
+    console.log(inputObject);
+    const { data } = await supabase
+      .from("Restaurants")
+      .update(inputObject)
+      .eq("id", id)
+      .select();
 
-    const selected = restaurants.map((restorant) => {
-      if (restorant.id === result.data.id) {
-        return result.data;
-      }
-      return restorant;
-    });
-    setRestaurants(selected);
+    setNewRestorants(inputObject);
     setMessageInput("");
     setNameInput("");
     setStarsInput(0);

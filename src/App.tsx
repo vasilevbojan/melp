@@ -16,15 +16,9 @@ const App = () => {
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route
-            path="/cuisines/:category"
-            element={<CuisinesPage />}
-          />
-          <Route
-            path="/restaurant/:restaurant"
-            element={<RestaurantDetailPage />}
-          />
-          <Route path="/favorites" element={<Favorites/>}/>
+          <Route path="/cuisines/:category" element={<CuisinesPage />} />
+          <Route path="/restaurant/:id" element={<RestaurantDetailPage />} />
+          <Route path="/favorites" element={<Favorites />} />
         </Routes>
         <Footer />
       </AuthContextConstructor>
