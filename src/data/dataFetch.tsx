@@ -41,8 +41,6 @@ export const useFetchAll = () => {
     fetchData();
   }, []);
 
-  console.log(fetchData);
-
   return fetchData;
 };
 
@@ -67,8 +65,6 @@ export const useUpdate = (
 
     fetchData();
   }, [propToSelect, target, prop]);
-
-  console.log(fetchData);
 
   return fetchData;
 };

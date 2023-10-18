@@ -1,4 +1,5 @@
 import { useData } from "../../../Context/DataContext";
+import { useFetchAll } from "../../../data/dataFetch";
 import RestaurantCard from "./RestaurantCard";
 
 interface Props {
@@ -6,7 +7,7 @@ interface Props {
 }
 
 export const MostPopular = ({ title }: Props) => {
-  const { restaurants } = useData();
+  const restaurants = useFetchAll();
   let mostPopularRestaurants = restaurants
     .sort((a, b) => b.reviews - a.reviews)
     .slice(0, 10);

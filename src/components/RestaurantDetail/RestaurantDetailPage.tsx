@@ -1,13 +1,12 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Review from "./review";
 import { useState } from "react";
-import { FetchSingle, useUpdate } from "../../data/dataFetch";
+import { FetchSingle } from "../../data/dataFetch";
 import supabase from "../../config/supabaseClient";
 import { RestaurantsType } from "../../interfaces/types";
 
 const RestaurantDetailPage = () => {
   const { id } = useParams();
-  console.log(id);
 
   const resto = FetchSingle("id", id!);
 
@@ -21,7 +20,7 @@ const RestaurantDetailPage = () => {
   const [starsInput, setStarsInput] = useState<number>(0);
 
   if (!chosenRestaurant) {
-    return <div>Error</div>;
+    return <div></div>;
   }
   const objectList = chosenRestaurant.reviewsList;
 
