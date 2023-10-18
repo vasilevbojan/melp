@@ -21,8 +21,6 @@ export const FetchSingle = (propToSelect: string, target?: string) => {
     fetchData();
   }, [propToSelect, target]);
 
-  console.log(fetchData);
-
   return fetchData;
 };
 
@@ -65,6 +63,27 @@ export const useUpdate = (
 
     fetchData();
   }, [propToSelect, target, prop]);
+
+  return fetchData;
+};
+
+export const FetchColumn = (propToSelect: string, target?: string) => {
+  const [fetchData, setFetchData] = useState<RestaurantsType[]>();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await supabase
+        .from("Restaurants")
+        .select()
+        .eq(propToSelect, target);
+
+      if (data) {
+        setFetchData(data);
+      }
+    };
+
+    fetchData();
+  }, [propToSelect, target]);
 
   return fetchData;
 };

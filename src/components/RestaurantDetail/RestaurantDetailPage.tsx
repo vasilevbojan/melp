@@ -38,12 +38,6 @@ const RestaurantDetailPage = () => {
       reviewsList: [...chosenRestaurant.reviewsList, reviewsList],
       reviews: chosenRestaurant.reviews + 1,
     };
-    console.log(inputObject);
-    const { data } = await supabase
-      .from("Restaurants")
-      .update(inputObject)
-      .eq("id", id)
-      .select();
 
     setNewRestorants(inputObject);
     setMessageInput("");

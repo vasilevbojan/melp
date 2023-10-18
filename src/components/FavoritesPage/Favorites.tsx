@@ -1,8 +1,8 @@
-import { useData } from "../../Context/DataContext";
+import { useFetchAll } from "../../data/dataFetch";
 import RestaurantCard from "../HomePage/Elements/RestaurantCard";
 
 const Favorites = () => {
-  const { restaurants} = useData();
+  const restaurants = useFetchAll();
 
   const localS: string[] = JSON.parse(localStorage.getItem("favorite") || "");
   const selected = restaurants.filter((r) => {
@@ -16,9 +16,7 @@ const Favorites = () => {
       <h3 className="text-center mb-4 ">YOUR FAVORITE RESTAURANTS</h3>
       <div className="row">
         {selected.map((restaurant) => {
-          return (
-            <RestaurantCard restaurant={restaurant} key={restaurant.id} />
-          );
+          return <RestaurantCard restaurant={restaurant} key={restaurant.id} />;
         })}
       </div>
     </div>

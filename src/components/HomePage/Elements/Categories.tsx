@@ -1,11 +1,12 @@
 import { useData } from "../../../Context/DataContext";
+import { useFetchAll } from "../../../data/dataFetch";
 import CategoryButton from "./CategoryButton";
 
 interface Props {
   title: string;
 }
 export const Categories = ({ title }: Props) => {
-  const { restaurants } = useData();
+  const restaurants = useFetchAll();
   let categories: string[] = [];
 
   restaurants.forEach((res) => {
