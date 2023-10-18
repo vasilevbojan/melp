@@ -8,7 +8,7 @@ export const Navbar = () => {
         to="/"
         className="text-decoration-none my-3 font-weight-bolder text-dark"
       >
-        <h4 className="fw-bolder ">RESTAURANT</h4>
+        <h4 className="fw-bolder ">MELP</h4>
       </Link>
       <Link to={"/favorites"}>
         <FaHeart size={40} className=" heartColor " />
